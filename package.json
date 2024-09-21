@@ -1,6 +1,6 @@
 {
   "name": "@musicslayer/easy_ssl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Easily generate SSL certificates.",
   "main": "index.js",
   "scripts": {
