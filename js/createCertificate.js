@@ -15,4 +15,4 @@ async function createCertificate(accountKey, serverKey, kid, directoryUrl, domai
     return pems;
 }
 
-module.exports.createCertificate = createCertificate;
+module.exports = createCertificate;

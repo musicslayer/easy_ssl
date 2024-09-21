@@ -5,4 +5,4 @@ function createPrivateKey(keyOptions) {
     return privateKey;
 }
 
-module.exports.createPrivateKey = createPrivateKey;
+module.exports = createPrivateKey;

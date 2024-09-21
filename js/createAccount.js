@@ -8,4 +8,4 @@ async function createAccount(accountKey, directoryUrl) {
     return kid
 }
 
-module.exports.createAccount = createAccount;
+module.exports = createAccount;
