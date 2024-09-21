@@ -1,0 +1,35 @@
+const fs = require("fs");
+const {createCertificate} = require("@musicslayer/easy_ssl");
+const plugin_cloudflare = require("acme-dns-01-cloudflare");
+
+const IS_STAGING = true;
+const DOMAINS = ["a.musicslayer.com", "*.b.musicslayer.com"];
+const COULDFLARE_API_KEY = "8RrTaFiYRbthqjnrMoZEqzUdYWgdtoicNSLtkq4g";
+
+async function init() {
+    let accountData = JSON.parse(fs.readFileSync("account_info.txt"));
+    let accountKey = JSON.parse(accountData.accountKey);
+    let kid = JSON.parse(accountData.kid);
+
+    let serverData = JSON.parse(fs.readFileSync("server_info.txt"));
+    let serverKey = JSON.parse(serverData.serverKey);
+
+    let directoryUrl = IS_STAGING ? "https://acme-staging-v02.api.letsencrypt.org/directory" : "https://acme-v02.api.letsencrypt.org/directory";
+
+    let challengePlugins = {
+        "dns-01": plugin_cloudflare.create({
+            token: COULDFLARE_API_KEY,
+            verifyPropagation: true,
+            verbose: true
+        })
+    };
+    
+    let pems = await createCertificate(accountKey, serverKey, kid, directoryUrl, DOMAINS, challengePlugins);
+    
+    // Write SSL Certificates
+    let fullchain = pems.fullchain;
+    fs.writeFileSync("fullchain.pem", fullchain);
+
+    console.log("SSL Certificate Creation Complete!");
+}
+init();
