@@ -2,9 +2,10 @@ const fs = require("fs");
 const {createCertificate} = require("@musicslayer/easy_ssl");
 const plugin_cloudflare = require("acme-dns-01-cloudflare");
 
+// Change these values based on your workflow.
 const IS_STAGING = true;
-const DOMAINS = ["a.musicslayer.com", "*.b.musicslayer.com"];
-const COULDFLARE_API_KEY = "8RrTaFiYRbthqjnrMoZEqzUdYWgdtoicNSLtkq4g";
+const DOMAINS = ["a.yourdomain.com", "*.b.yourdomain.com"];
+const COULDFLARE_API_KEY = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
 async function init() {
     let accountData = JSON.parse(fs.readFileSync("account_info.txt"));
