@@ -1,0 +1,25 @@
+{
+  "name": "@musicslayer/easy_ssl",
+  "version": "1.0.0",
+  "description": "Easily generate SSL certificates.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/musicslayer/easy_ssl.git"
+  },
+  "keywords": [
+    "ssl",
+    "https",
+    "certificate",
+    "ssl-certificate"
+  ],
+  "author": "musicslayer",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/musicslayer/easy_ssl/issues"
+  },
+  "homepage": "https://github.com/musicslayer/easy_ssl#readme"
+}
