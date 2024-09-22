@@ -95,17 +95,20 @@ function generatePrivateKey(jwk) {
 function convertPrivateKey(privateKeyDER) {
     // Converts a private key from DER to PEM.
     let type;
+    let key;
     if("EC" === privateKeyDER.kty) {
         type = "sec1"
+        key = packSec1(privateKeyDER);
     }
     else if("RSA" === privateKeyDER.kty) {
         type = "pkcs1"
+        key = packPkcs1(privateKeyDER);
     }
     else {
         throw new Error("Unsupported key type: " + privateKeyDER.kty);
     }
 
-    let privateKeyPEM = crypto.createPrivateKey({ key: privateKeyDER, type: type, format: "der" }).export({ type: type, format: "pem" });
+    let privateKeyPEM = crypto.createPrivateKey({ key: key, type: type, format: "der" }).export({ type: type, format: "pem" });
     return privateKeyPEM;
 }
 
