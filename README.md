@@ -89,6 +89,22 @@ Arguments:
 - **domains** is an array of domains that you wish to create the certificate for. Entries with wildcards such as "*.shop.yourdomain.com" are permitted.
 - **challengePlugins** is an object mapping different challenge types to a plugin that will be responsible for handling them (see section below for more information). It is highly recommended that you use the Root challenge plugins, although you can also create your own.
 
+## Challenge Plugins
+The **challengePlugins** argument to "createCertificate" will look like this:
+```
+challengePlugins = {
+	"dns-01": plugin_for_dns,
+	"http-01": plugin_for_http
+}
+```
+
+Where each type of challenge that we wish to handle is mapped to a challenge plugin that can handle it. In our examples, the Cloudflare plugin is a DNS plugin, so we map it with "dns-01". We omit the "http-01" entry since we do not provide a plugin to handle those types of challenges.
+
+You must either omit an entry or map it to exactly one plugin i.e. you cannot provide an array of plugins. Also, the program itself will decide which plugins can be used, and which priority they will take if more than one are provided.
+
+> [!IMPORTANT]
+> This code only supports "dns-01" and "http-01". Although the Root code does mention "tls-alpn-01", in my rewriting I decided not to provide any support for it.
+
 ## Additional Tips
 ### Deprecation Warnings
 When running the examples with the Root Cloudflare challenge plugin, you may see the following printed to the console:
