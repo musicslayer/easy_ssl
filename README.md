@@ -1,8 +1,12 @@
 # easy_ssl
 Easily generate SSL certificates
 
+This code is a rewriting of the Root [acme.js](https://github.com/therootcompany/acme.js) repository. The goal was to streamline the functionality and make the code easier to understand.
+
+This code has no external dependencies, although it operates under a "bring your own challenge plugin" model. For example, if the domain you wish to create a certificate for is hosted by Cloudflare, you will need to provide a challenge plugin that can interact with the Cloudflare API. You may write your own, but it is recommended that you use the plugins written by Root. See [this page](https://github.com/therootcompany/acme.js?tab=readme-ov-file#challenge-callbacks) for more information.
+
 ## Installation Instructions
-Package available on [NPM](https://www.npmjs.com/package/@musicslayer/emailsend).
+Package available on [NPM](https://www.npmjs.com/package/@musicslayer/easy_ssl).
 
 `> npm install @musicslayer/easy_ssl`
 
@@ -84,3 +88,12 @@ Arguments:
 	- Staging: "https://acme-staging-v02.api.letsencrypt.org/directory"
 - **domains** is an array of domains that you wish to create the certificate for. Entries with wildcards such as "*.shop.yourdomain.com" are permitted.
 - **challengePlugins** is an object mapping different challenge types to a plugin that will be responsible for handling them (see section below for more information). It is highly recommended that you use the Root challenge plugins, although you can also create your own.
+
+## Additional Tips
+### Deprecation Warnings
+When running the examples with the Root Cloudflare challenge plugin, you may see the following printed to the console:
+```
+(node:13104) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+(Use `node --trace-deprecation ...` to show where the warning was created)
+```
+This is caused by code within the plugin itself and can be ignored.
