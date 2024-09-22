@@ -92,6 +92,23 @@ function generatePrivateKey(jwk) {
     return privateKey;
 }
 
+function convertPrivateKey(privateKeyDER) {
+    // Converts a private key from DER to PEM.
+    let type;
+    if("EC" === privateKeyDER.kty) {
+        type = "sec1"
+    }
+    else if("RSA" === privateKeyDER.kty) {
+        type = "pkcs1"
+    }
+    else {
+        throw new Error("Unsupported key type: " + privateKeyDER.kty);
+    }
+
+    let privateKeyPEM = crypto.createPrivateKey({ key: privateKeyDER, type: type, format: "der" }).export({ type: type, format: "pem" });
+    return privateKeyPEM;
+}
+
 function createCSR(jwk, domains) {
     let key;
     if("EC" === jwk.kty) {
@@ -421,6 +438,7 @@ function strToHex(str) {
 };
 
 module.exports.generatePrivateKey = generatePrivateKey;
+module.exports.convertPrivateKey = convertPrivateKey;
 module.exports.createCSR = createCSR;
 module.exports.createJWS = createJWS;
 module.exports.shaDigest = shaDigest;

@@ -27,11 +27,11 @@ async function init() {
         })
     };
     
-    let pems = await createCertificate(accountKey, serverKey, kid, directoryUrl, DOMAINS, challengePlugins);
+    let certificate = await createCertificate(accountKey, serverKey, kid, directoryUrl, DOMAINS, challengePlugins);
     
-    // Write SSL Certificates
-    let fullchain = pems.fullchain;
-    fs.writeFileSync("fullchain.pem", fullchain);
+    // Write SSL certificate and private key, both in PEM format.
+    fs.writeFileSync("certificate.pem", certificate.certificatePEM);
+    fs.writeFileSync("private-key.pem", certificate.privateKeyPEM);
 
     console.log("SSL Certificate Creation Complete!");
 }

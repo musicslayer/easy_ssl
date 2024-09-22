@@ -410,10 +410,13 @@ class ACME {
             payload: binToBuf("")
         })
 
+        let serverKeyPEM = X509.convertPrivateKey(certificateOptions.serverKey);
+
         return {
             expires: voucher.expires,
             identifiers: voucher.identifiers,
-            fullchain: certificateResponse.body
+            certificatePEM: certificateResponse.body,
+            privateKeyPEM: serverKeyPEM
         };
     }
 }
