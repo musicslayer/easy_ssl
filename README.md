@@ -1,7 +1,7 @@
 # Easy SSL
 Easily generate SSL certificates
 
-This code is a rewriting of the Root [acme.js](https://github.com/therootcompany/acme.js) repository. The goal was to streamline the functionality and make the code easier to understand.
+This code is an independent rewriting of the Root [acme.js](https://github.com/therootcompany/acme.js) repository. The goal was to streamline the functionality and make the code easier to understand.
 
 This code has no external dependencies, although it operates under a "bring your own challenge plugin" model. For example, if the domain you wish to create a certificate for is hosted by Cloudflare, you will need to provide a challenge plugin that can interact with the Cloudflare API. You may write your own, but it is recommended that you use the plugins written by Root. See [this page](https://github.com/therootcompany/acme.js?tab=readme-ov-file#challenge-callbacks) for more information.
 
@@ -113,3 +113,13 @@ When running the examples with the Root Cloudflare challenge plugin, you may see
 (Use `node --trace-deprecation ...` to show where the warning was created)
 ```
 This is caused by code within the plugin itself and can be ignored.
+
+### Domains
+A typical use case is to create a single certificate that covers your domain and all possible subdomains. For example, "yourdomain.com", "shop.yourdomain.com", "support.shop.yourdomain.com", etc.
+
+To achieve this, call "createCertificate" with domains set to:
+```
+domains = ["*.yourdomain.com", "yourdomain.com"]
+```
+
+The wildcard entry will cover all possible subdomains, but you must explicitly specify the base domain in order for that to be covered as well.
