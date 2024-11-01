@@ -1,5 +1,5 @@
 # Easy SSL
-Easily generate SSL certificates
+Easily generate SSL certificates signed by Let's Encrypt.
 
 This code is an independent rewriting of the Root [acme.js](https://github.com/therootcompany/acme.js) repository. The goal was to streamline the functionality and make the code easier to understand.
 
